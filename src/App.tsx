@@ -43,8 +43,8 @@ const MENU_RULES: MenuRule[] = [
   {
     id: "led-ext",
     label: "LEDエクステ",
-    recommended: { kind: "weeks", value: 3 },
-    deadline: { kind: "months", value: 1 },
+    recommended: { kind: "weeks", value: 4 },
+    deadline: { kind: "weeks", value: 6 },
   },
   {
     id: "lash-perm",
