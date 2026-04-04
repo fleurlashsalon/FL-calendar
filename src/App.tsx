@@ -304,25 +304,32 @@ function App() {
 
                   const baseCell =
                     "relative min-h-[84px] rounded-xl border p-2 text-left transition-colors md:min-h-[92px]";
+                  // 全休と bg-white / bg-slate-50 を同時に付けると Tailwind の順序で片方が勝ち、
+                  // 当月セルではグレーが消えることがあるため、全休時はベース背景クラスを付けない。
                   const cellClass = [
                     baseCell,
-                    inCurrentMonth ? "border-slate-200 bg-white" : "border-slate-100 bg-slate-50",
-                    isFull ? "bg-slate-300 text-slate-500" : "",
+                    isFull
+                      ? "border-slate-200 text-slate-500"
+                      : inCurrentMonth
+                        ? "border-slate-200 bg-white"
+                        : "border-slate-100 bg-slate-50",
                   ].join(" ");
 
                   return (
                     <div
-                      key={key}
+                      key={`${monthLabel}-${key}`}
                       className={cellClass}
                       style={
-                        !isFull && isHalf
-                          ? {
-                              backgroundImage:
-                                "linear-gradient(135deg, transparent 0%, transparent 48%, rgba(148,163,184,.35) 48%, rgba(148,163,184,.35) 100%)",
-                            }
-                          : !isFull && isToday
-                            ? { backgroundColor: "rgba(251, 113, 133, 0.15)" }
-                          : undefined
+                        isFull
+                          ? { backgroundColor: "rgb(203 213 225)" }
+                          : isHalf
+                            ? {
+                                backgroundImage:
+                                  "linear-gradient(135deg, transparent 0%, transparent 48%, rgba(148,163,184,.35) 48%, rgba(148,163,184,.35) 100%)",
+                              }
+                            : isToday
+                              ? { backgroundColor: "rgba(251, 113, 133, 0.15)" }
+                              : undefined
                       }
                     >
                       <div
